@@ -32,7 +32,7 @@ setup(
     packages=find_namespace_packages(where='src'),
     install_requires=[
         "kasperl",
-        "plotext_plus",
+        "plotext",
         "matplotlib",
     ],
     entry_points={

@@ -1,7 +1,7 @@
 import argparse
 from typing import List, Iterable
 
-import plotext_plus as plt
+import plotext as plt
 from wai.logging import LOGGING_WARNING
 
 from kasperl.api import make_list, BatchWriter, Plot, XYPlot, SequencePlot
