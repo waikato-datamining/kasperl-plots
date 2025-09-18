@@ -131,4 +131,5 @@ class GraphicalPlot(BatchWriter, InputBasedPlaceholderSupporter):
         plt.title("Plot" if (data.title is None) else data.title)
         if path is not None:
             plt.savefig(path)
-        plt.show(block=self.block)
+        if self.block:
+            plt.show(block=self.block)
