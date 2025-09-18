@@ -34,6 +34,7 @@ setup(
         "kasperl",
         "plotext",
         "matplotlib",
+        "sixel",
     ],
     entry_points={
         "class_lister": [

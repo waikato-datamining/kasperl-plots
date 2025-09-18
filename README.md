@@ -26,4 +26,5 @@ pip install git+https://github.com/waikato-datamining/kasperl-plots.git
 
 * kasperl.plots.writer.CsvPlotWriter
 * kasperl.plots.writer.GraphicalPlot
+* kasperl.plots.writer.SixelPlot
 * kasperl.plots.writer.TerminalPlot
