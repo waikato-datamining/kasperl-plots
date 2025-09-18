@@ -103,6 +103,8 @@ class GraphicalPlot(BatchWriter, InputBasedPlaceholderSupporter):
         if self.output_file is not None:
             path = self.session.expand_placeholders(self.output_file)
 
+        plt.clf()
+
         if isinstance(data, XYPlot):
             if self.plot_type == PLOT_LINE:
                 plt.plot(data.x_data, data.y_data)
