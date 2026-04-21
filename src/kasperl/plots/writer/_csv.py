@@ -5,10 +5,10 @@ from typing import List, Iterable
 from wai.logging import LOGGING_WARNING
 
 from kasperl.api import make_list, BatchWriter, Plot, XYPlot, SequencePlot
-from seppl.placeholders import placeholder_list, InputBasedPlaceholderSupporter
+from seppl.variables import InputBasedVariableSupporter, variable_list
 
 
-class CsvPlotWriter(BatchWriter, InputBasedPlaceholderSupporter):
+class CsvPlotWriter(BatchWriter, InputBasedVariableSupporter):
 
     def __init__(self, output: str = None, separator: str = None,
                  logger_name: str = None, logging_level: str = LOGGING_WARNING):
@@ -54,7 +54,7 @@ class CsvPlotWriter(BatchWriter, InputBasedPlaceholderSupporter):
         :rtype: argparse.ArgumentParser
         """
         parser = super()._create_argparser()
-        parser.add_argument("-o", "--output", type=str, help="The file to save the plot data in. " + placeholder_list(obj=self), required=True)
+        parser.add_argument("-o", "--output", type=str, help="The file to save the plot data in. " + variable_list(obj=self), required=True)
         parser.add_argument("-s", "--separator", type=str, help="The separator to use for writing the CSV file.", required=False, default=",")
         return parser
 
@@ -92,7 +92,7 @@ class CsvPlotWriter(BatchWriter, InputBasedPlaceholderSupporter):
         if len(data) > 1:
             self.logger().warning("Can only save the first of %d data items!" % len(data))
         data = data[0]
-        path = self.session.expand_placeholders(self.output_file)
+        path = self.session.expand_variables(self.output_file)
         with open(path, "w", newline='') as fp:
             writer = csv.writer(fp, delimiter=self.separator)
             if isinstance(data, XYPlot):

@@ -6,11 +6,11 @@ from typing import List, Iterable, Union
 from seppl.io import locate_files
 from wai.logging import LOGGING_WARNING
 
-from seppl.placeholders import PlaceholderSupporter, placeholder_list
+from seppl.variables import VariableSupporter, variable_list
 from kasperl.api import Reader, Plot, XYPlot, SequencePlot
 
 
-class CsvPlotReader(Reader, PlaceholderSupporter):
+class CsvPlotReader(Reader, VariableSupporter):
 
     def __init__(self, source: Union[str, List[str]] = None, source_list: Union[str, List[str]] = None,
                  resume_from: str = None, title: str = None, x_data: str = None, x_label: str = None,
@@ -82,8 +82,8 @@ class CsvPlotReader(Reader, PlaceholderSupporter):
         :rtype: argparse.ArgumentParser
         """
         parser = super()._create_argparser()
-        parser.add_argument("-i", "--input", type=str, help="Path to the CSV file(s) to read; glob syntax is supported; " + placeholder_list(obj=self), required=False, nargs="*")
-        parser.add_argument("-I", "--input_list", type=str, help="Path to the text file(s) listing the CSV files to use; " + placeholder_list(obj=self), required=False, nargs="*")
+        parser.add_argument("-i", "--input", type=str, help="Path to the CSV file(s) to read; glob syntax is supported; " + variable_list(obj=self), required=False, nargs="*")
+        parser.add_argument("-I", "--input_list", type=str, help="Path to the text file(s) listing the CSV files to use; " + variable_list(obj=self), required=False, nargs="*")
         parser.add_argument("--resume_from", type=str, help="Glob expression matching the file to resume from, e.g., '*/012345.csv'", required=False)
         parser.add_argument("-t", "--title", type=str, help="The title for the plot, default is the file name.", required=False, default=None)
         parser.add_argument("-x", "--x_data", type=str, help="The 1-based index of the column in the CSV file to use for the x values.", required=False, default=None)

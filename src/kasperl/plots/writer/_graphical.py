@@ -6,10 +6,10 @@ from wai.logging import LOGGING_WARNING
 
 from kasperl.api import make_list, BatchWriter, Plot, XYPlot, SequencePlot
 from kasperl.plots.core import PLOT_TYPES, PLOT_LINE, PLOT_SCATTER
-from seppl.placeholders import placeholder_list, InputBasedPlaceholderSupporter
+from seppl.variables import InputBasedVariableSupporter, variable_list
 
 
-class GraphicalPlot(BatchWriter, InputBasedPlaceholderSupporter):
+class GraphicalPlot(BatchWriter, InputBasedVariableSupporter):
 
     def __init__(self, output: str = None, plot_type: str = None, block: bool = None,
                  logger_name: str = None, logging_level: str = LOGGING_WARNING):
@@ -58,7 +58,7 @@ class GraphicalPlot(BatchWriter, InputBasedPlaceholderSupporter):
         :rtype: argparse.ArgumentParser
         """
         parser = super()._create_argparser()
-        parser.add_argument("-o", "--output", type=str, help="The file to save the plot in. " + placeholder_list(obj=self), required=False, default=None)
+        parser.add_argument("-o", "--output", type=str, help="The file to save the plot in. " + variable_list(obj=self), required=False, default=None)
         parser.add_argument("-t", "--plot_type", choices=PLOT_TYPES, help="The type of plot to generate.", required=False, default=PLOT_LINE)
         parser.add_argument("-b", "--block", action="store_true", help="Whether to block the execution till the user closes the dialog.")
         return parser
@@ -101,7 +101,7 @@ class GraphicalPlot(BatchWriter, InputBasedPlaceholderSupporter):
 
         path = None
         if self.output_file is not None:
-            path = self.session.expand_placeholders(self.output_file)
+            path = self.session.expand_variables(self.output_file)
 
         plt.clf()
 
